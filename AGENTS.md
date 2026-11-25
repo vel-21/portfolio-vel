@@ -34,3 +34,5 @@ use the editor.
 - Keep case-study data and delivery policy in a browser-safe module; display project diagrams as illustrations, never as real screenshots.
 - Use semantic global design tokens and portfolio Button variants for consistent light/dark rendering.
 - Until supplied, leave external contact destinations and actual case-study media unconnected rather than fabricating personal details or evidence.
+- GitHub Pages builds only when GITHUB_PAGES=true (base /portfolio-vel/, prerendered static site); default builds stay root-based so Lovable hosting keeps working.
+- Wrap Lovable asset URLs with assetUrl() so static hosts load media from VITE_ASSET_ORIGIN.

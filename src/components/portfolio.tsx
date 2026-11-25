@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dialog";
 import { projects, deliveryPolicy, type Project } from "@/lib/portfolio";
 import { contact } from "@/lib/contact";
+import { assetUrl } from "@/lib/asset-url";
 import portraitAsset from "@/assets/juvel-portrait.jpg.asset.json";
 
 const navigation = [
@@ -163,7 +164,7 @@ export function Portfolio() {
       <header className="site-header">
         <div className="page-container flex h-full items-center justify-between gap-4">
           <a href="#main" className="flex items-center gap-3" aria-label="Juvel Bergantin home">
-            <img src="/favicon.svg" width={35} height={35} alt="" className="brand-mark" />
+            <img src={`${import.meta.env.BASE_URL}favicon.svg`} width={35} height={35} alt="" className="brand-mark" />
             <span className="brand-name">Juvel Bergantin<span className="hidden sm:inline text-muted-foreground font-normal"> / AI Automation</span></span>
           </a>
           <div className="flex items-center gap-3 sm:gap-6">
@@ -238,7 +239,7 @@ export function Portfolio() {
 
         <section id="about" className="section" aria-labelledby="about-title">
           <div className="page-container about-grid">
-            <figure className="portrait"><img src={portraitAsset.url} alt="Juvel Bergantin, seated and looking at the camera" width={1536} height={2048} loading="lazy" /></figure>
+            <figure className="portrait"><img src={assetUrl(portraitAsset.url)} alt="Juvel Bergantin, seated and looking at the camera" width={1536} height={2048} loading="lazy" /></figure>
             <div className="about-copy">
               <div className="eyebrow">04 / A little about me</div><h2 id="about-title">Hi, I’m Juvel.</h2>
               <p>I’m a Computer Science student at Camarines Sur Polytechnic Colleges, building practical AI automations for small businesses and agencies.</p>
