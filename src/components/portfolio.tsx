@@ -253,7 +253,7 @@ export function Portfolio() {
             <div className="eyebrow">05 / Let’s work together</div>
             <h2 id="contact-title">What’s taking up<br />too much of your time?</h2>
             <p>Tell me the tools you use and the task that eats your time. I’ll reply with a plan.</p>
-            <div className="contact-actions"><HireButton /><span className="email-placeholder">{contact.email}</span></div>
+            <div className="contact-actions"><HireButton /></div>
           </div>
         </section>
       </main>
