@@ -29,12 +29,21 @@ jobs:
         env:
           GITHUB_PAGES: "true"
           VITE_ASSET_ORIGIN: https://portfolio-vel.lovable.app
-      # TanStack Start writes the static site to dist/client; publish that folder as dist.
       - name: Prepare dist
         run: |
-          mv dist dist-build
-          mv dist-build/client dist
-          rm -rf dist-build
+          echo "--- .output/public ---"
+          find .output/public -maxdepth 3 | head -60
+          echo "--- dist ---"
+          ls -la dist 2>/dev/null || true
+          if [ -d dist ] && [ -f dist/index.html ]; then
+            echo "using dist"
+          elif [ -f .output/public/index.html ]; then
+            rm -rf dist && mv .output/public dist
+          elif [ -f .output/public/_shell.html ]; then
+            rm -rf dist && mv .output/public dist && cp dist/_shell.html dist/index.html
+          else
+            echo "no index.html found"; exit 1
+          fi
           cp dist/index.html dist/404.html
           touch dist/.nojekyll
       - uses: actions/configure-pages@v5
