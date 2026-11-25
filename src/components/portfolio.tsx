@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useState } from "react";
 import {
   ArrowDown, ArrowRight, ArrowUpRight, Bell, Check, CheckCircle2,
-  CircleDot, ClipboardCheck, FileText, Filter, GitBranch, Image,
+  CircleDot, ClipboardCheck, FileText, Filter, GitBranch,
   Mail, Menu, Moon, Play, Send, Sparkles, Sun, Table2, Users,
   Workflow, Wrench, X, type LucideIcon,
 } from "lucide-react";
@@ -105,15 +105,29 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             <div><h3>What I built</h3><p>{project.built}</p></div>
             <div><h3>How it works</h3><ol>{project.steps.map(step => <li key={step}>{step}</li>)}</ol></div>
             <div className="case-result"><h3>Result</h3><p>{project.result}</p></div>
+            {project.loom && (
+              <div>
+                <h3>Loom walkthrough</h3>
+                <a className="loom-link" href={project.loom} target="_blank" rel="noopener noreferrer"><Play size={14} /> Watch the walkthrough<ArrowUpRight aria-hidden="true" /></a>
+              </div>
+            )}
             <div>
-              <h3>Loom walkthrough</h3>
-              <div className="media-pending"><Play size={28} strokeWidth={1.4} /><span>Recording not provided yet</span></div>
+              <h3>Workflow diagram</h3>
+              <figure className="case-media">
+                <a href={project.media.flow} target="_blank" rel="noopener noreferrer">
+                  <img src={project.media.flow} width={1600} height={900} loading="lazy" alt={`Workflow diagram for the ${project.title} demo build`} />
+                </a>
+                <figcaption>Built in n8n · click to open full size</figcaption>
+              </figure>
             </div>
             <div>
-              <h3>Project screenshots</h3>
-              <div className="screenshot-slots">
-                {[1, 2].map(number => <div className="media-pending" key={number}><Image size={25} strokeWidth={1.4} /><span>Screenshot {number} pending</span></div>)}
-              </div>
+              <h3>Test run result</h3>
+              <figure className="case-media">
+                <a href={project.media.result} target="_blank" rel="noopener noreferrer">
+                  <img src={project.media.result} width={1600} height={900} loading="lazy" alt={`Test run result for the ${project.title} demo build`} />
+                </a>
+                <figcaption>Live n8n test run · click to open full size</figcaption>
+              </figure>
             </div>
             <div className="border-t pt-5"><HireButton /></div>
           </DialogContent>

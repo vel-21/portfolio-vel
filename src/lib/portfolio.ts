@@ -1,4 +1,18 @@
+import analyzerFlow from "@/assets/analyzer_flow.png.asset.json";
+import analyzerResult from "@/assets/analyzer_result.png.asset.json";
+import invoiceFlow from "@/assets/invoice_flow.png.asset.json";
+import invoiceResult from "@/assets/invoice_result.png.asset.json";
+import speedToLeadFlow from "@/assets/speed_to_lead_flow.png.asset.json";
+import speedToLeadResult from "@/assets/speed_to_lead_result.png.asset.json";
+import triageFlow from "@/assets/triage_flow.png.asset.json";
+import triageResult from "@/assets/triage_result.png.asset.json";
+
 export const deliveryPolicy = { fixWindowDays: 14 } as const;
+
+export type ProjectMedia = {
+  flow: string;
+  result: string;
+};
 
 export type Project = {
   id: string;
@@ -10,6 +24,8 @@ export type Project = {
   problem: string;
   built: string;
   steps: string[];
+  media: ProjectMedia;
+  loom?: string;
 };
 
 export const projects: Project[] = [
@@ -23,6 +39,7 @@ export const projects: Project[] = [
     problem: "New inquiries can sit unanswered while a business owner handles admin. Manually qualifying leads and updating a spreadsheet slows the first response.",
     built: "A demo n8n workflow that connects AI lead qualification, lead logging and a personalized email response in one flow.",
     steps: ["Receive the lead details through the workflow trigger.", "Use Gemini and Groq to evaluate the inquiry and prepare a response.", "Record the lead and qualification details in Google Sheets.", "Send the follow-up through Gmail."],
+    media: { flow: speedToLeadFlow.url, result: speedToLeadResult.url },
   },
   {
     id: "invoice-to-sheets",
@@ -34,6 +51,7 @@ export const projects: Project[] = [
     problem: "Copying invoice details into a spreadsheet is repetitive, and missing or inconsistent fields are easy to overlook.",
     built: "A demo document-processing workflow that reads invoice PDFs, extracts structured fields and checks them before adding rows to Google Sheets.",
     steps: ["Receive the invoice PDFs in n8n.", "Read the documents with Gemini and extract the invoice fields.", "Validate the extracted data and flag errors for review.", "Write the checked records and review flags to Google Sheets."],
+    media: { flow: invoiceFlow.url, result: invoiceResult.url },
   },
   {
     id: "job-triage",
@@ -45,6 +63,7 @@ export const projects: Project[] = [
     problem: "Reviewing every job opportunity takes time, especially when many are not a good fit.",
     built: "A demo AI triage pipeline that evaluates opportunities on six factors, logs the assessment and filters alerts to strong matches.",
     steps: ["Bring opportunity details into the n8n workflow.", "Evaluate each opportunity against six factors using Gemini and Groq.", "Log the opportunity and its assessment in Sheets.", "Send an alert only when the opportunity is a strong match."],
+    media: { flow: triageFlow.url, result: triageResult.url },
   },
   {
     id: "proposal-drafter",
@@ -56,5 +75,6 @@ export const projects: Project[] = [
     problem: "Understanding a job brief and starting a relevant proposal from a blank page can take longer than it should.",
     built: "A demo form-based workflow that turns a pasted job description into a structured analysis and a tailored proposal draft for human review.",
     steps: ["Paste the job description into an n8n Form.", "Analyze the job requirements with Gemini and Groq.", "Generate a proposal draft tailored to the brief.", "Review and refine the draft before sending it."],
+    media: { flow: analyzerFlow.url, result: analyzerResult.url },
   },
 ];
