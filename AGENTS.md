@@ -28,3 +28,9 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Portfolio architecture
+- Keep the portfolio as one index route with section anchors because the requested experience is explicitly one long scrolling page.
+- Keep case-study data and delivery policy in a browser-safe module; display project diagrams as illustrations, never as real screenshots.
+- Use semantic global design tokens and portfolio Button variants for consistent light/dark rendering.
+- Until supplied, leave external contact destinations and actual case-study media unconnected rather than fabricating personal details or evidence.
