@@ -255,11 +255,8 @@ html { scroll-behavior: smooth; scroll-padding-top: 90px; }
 .tool { font-weight: 700; font-size: 15px; color: var(--muted-foreground); }
 .tool:first-child { font-family: var(--font-mono); }
 .about-grid { display: grid; grid-template-columns: 280px 1fr; gap: 80px; align-items: center; }
-.portrait-placeholder { aspect-ratio: 1/1; position: relative; display: grid; place-items: center; background: var(--secondary); color: var(--primary); overflow: hidden; border-radius: 6px; }
-.portrait-placeholder::before,.portrait-placeholder::after { content: ''; position: absolute; width: 200px; height: 200px; border: 1px solid var(--preview-line); border-radius: 50%; }
-.portrait-placeholder::before { width: 340px; height: 340px; }
-.portrait-initials { font-size: 72px; font-weight: 600; z-index: 1; }
-.portrait-label { position: absolute; bottom: 16px; font: 10px var(--font-mono); color: var(--muted-foreground); }
+.portrait { position: relative; aspect-ratio: 3/4; overflow: hidden; border-radius: 6px; border: 1px solid var(--border); background: var(--secondary); }
+.portrait img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 38%; }
 .about-copy p { color: var(--muted-foreground); font-size: 14px; line-height: 1.9; margin-top: 18px; }
 .about-signature { font-size: 14px; font-weight: 650; margin-top: 25px; }
 .contact-section { background: var(--secondary); text-align: center; padding-block: 70px; }
@@ -318,8 +315,7 @@ html { scroll-behavior: smooth; scroll-padding-top: 90px; }
   .tools-row { justify-content: flex-start; gap: 22px 25px; }
   .tool { font-size: 13px; }
   .about-grid { grid-template-columns: 1fr; gap: 30px; }
-  .portrait-placeholder { width: 200px; }
-  .portrait-initials { font-size: 58px; }
+  .portrait { width: 210px; }
   .contact-section { padding-block: 50px; }
   .contact-section h2 { font-size: 29px; }
   .contact-actions { flex-direction: column; gap: 18px; }

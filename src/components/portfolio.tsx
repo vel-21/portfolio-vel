@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dialog";
 import { projects, deliveryPolicy, type Project } from "@/lib/portfolio";
 import { contact } from "@/lib/contact";
+import portraitAsset from "@/assets/juvel-portrait.jpg.asset.json";
 
 const navigation = [
   { label: "Services", id: "services" },
@@ -237,7 +238,7 @@ export function Portfolio() {
 
         <section id="about" className="section" aria-labelledby="about-title">
           <div className="page-container about-grid">
-            <div className="portrait-placeholder" aria-label="Juvel Bergantin photo placeholder"><span className="portrait-initials">JB</span><span className="portrait-label">PHOTO COMING SOON</span></div>
+            <figure className="portrait"><img src={portraitAsset.url} alt="Juvel Bergantin, seated and looking at the camera" width={1536} height={2048} loading="lazy" /></figure>
             <div className="about-copy">
               <div className="eyebrow">04 / A little about me</div><h2 id="about-title">Hi, I’m Juvel.</h2>
               <p>I’m a Computer Science student at Camarines Sur Polytechnic Colleges, building practical AI automations for small businesses and agencies.</p>
