@@ -38,6 +38,7 @@ const process = [
 const tools = ["n8n", "Make", "Zapier", "Airtable", "Google Sheets", "Gmail", "HubSpot", "Gemini", "Claude", "OpenAI"];
 
 const workflowIcons: Record<string, [LucideIcon, LucideIcon, LucideIcon, LucideIcon]> = {
+  "dead-lead-reactivation": [Users, Sparkles, ClipboardCheck, Mail],
   "speed-to-lead": [Users, Sparkles, Table2, Mail],
   "invoice-to-sheets": [FileText, Sparkles, ClipboardCheck, Table2],
   "job-triage": [FileText, Sparkles, Filter, Bell],
@@ -107,6 +108,12 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             <div><h3>What I built</h3><p>{project.built}</p></div>
             <div><h3>How it works</h3><ol>{project.steps.map(step => <li key={step}>{step}</li>)}</ol></div>
             <div className="case-result"><h3>Result</h3><p>{project.result}</p></div>
+            {project.liveDemo && (
+              <div>
+                <h3>Live demo</h3>
+                <a className="loom-link" href={project.liveDemo} target="_blank" rel="noopener noreferrer">Open the read-only demo<ArrowUpRight aria-hidden="true" /></a>
+              </div>
+            )}
             {project.loom && (
               <div>
                 <h3>Loom walkthrough</h3>
@@ -123,12 +130,12 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               </figure>
             </div>
             <div>
-              <h3>Test run result</h3>
+              <h3>{project.media.resultTitle ?? "Test run result"}</h3>
               <figure className="case-media">
                 <a href={project.media.result} target="_blank" rel="noopener noreferrer">
-                  <img src={project.media.result} width={1600} height={900} loading="lazy" alt={`Test run result for the ${project.title} demo build`} />
+                  <img src={project.media.result} width={1600} height={900} loading="lazy" alt={`${project.media.resultTitle ?? "Test run result"} for the ${project.title} demo build`} />
                 </a>
-                <figcaption>Live n8n test run · click to open full size</figcaption>
+                <figcaption>{project.media.resultCaption ?? "Live n8n test run · click to open full size"}</figcaption>
               </figure>
             </div>
             <div className="border-t pt-5"><HireButton /></div>
@@ -217,7 +224,7 @@ export function Portfolio() {
           <div className="page-container">
             <div className="section-heading">
               <div><div className="eyebrow">02 / Selected projects</div><h2 id="projects-title">Less talk. More working workflows.</h2></div>
-              <p className="section-intro">Four demo builds. Real workflows, concrete results, and a look at how they work.</p>
+              <p className="section-intro">Five demo builds. Real workflows, concrete results, and a look at how they work.</p>
             </div>
             <div className="projects-grid">{projects.map((project, index) => <ProjectCard key={project.id} project={project} index={index} />)}</div>
           </div>

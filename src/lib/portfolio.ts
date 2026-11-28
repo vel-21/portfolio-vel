@@ -7,12 +7,17 @@ import speedToLeadFlow from "@/assets/speed_to_lead_flow.png.asset.json";
 import speedToLeadResult from "@/assets/speed_to_lead_result.png.asset.json";
 import triageFlow from "@/assets/triage_flow.png.asset.json";
 import triageResult from "@/assets/triage_result.png.asset.json";
+// Revive images live in the repo (bundled by Vite), so they are not wrapped in assetUrl().
+import reviveFlow from "@/assets/revive_flow.png";
+import reviveDashboard from "@/assets/revive_dashboard.png";
 
 export const deliveryPolicy = { fixWindowDays: 14 } as const;
 
 export type ProjectMedia = {
   flow: string;
   result: string;
+  resultTitle?: string;
+  resultCaption?: string;
 };
 
 export type Project = {
@@ -27,9 +32,34 @@ export type Project = {
   steps: string[];
   media: ProjectMedia;
   loom?: string;
+  liveDemo?: string;
 };
 
 export const projects: Project[] = [
+  {
+    id: "dead-lead-reactivation",
+    title: "AI dead lead reactivation (Revive)",
+    result: "Old leads get personal, human-approved follow-ups; replies sorted and measured against a control group.",
+    tags: ["n8n", "Supabase", "Gemini", "Groq", "Gmail", "Next.js"],
+    nodes: ["Old leads", "AI drafts", "Approval", "Gmail"],
+    summary: "Old leads → AI drafts → approved → replies sorted",
+    problem: "Most service businesses have hundreds of old leads that got one or two follow-ups and were never contacted again. Writing to each one by hand takes days, and generic blasts get ignored or marked as spam.",
+    built: "A working system with an n8n engine, a Supabase database and a live dashboard. AI writes a short follow-up from each lead’s own request, and a person approves every message before it is sent. Consent, opt-outs, daily caps and duplicate checks are enforced in the database, so no workflow or user can skip them.",
+    steps: [
+      "Import old leads from any CRM export, with a required consent basis. Duplicates and bad rows are caught.",
+      "n8n ranks inactive leads and holds back 10% as a control group.",
+      "Gemini (with Groq as fallback) writes a personal follow-up for each lead. Code checks every draft.",
+      "A person approves, edits or rejects every message in the dashboard. n8n sends within a daily cap.",
+      "AI sorts replies (interested, question, not now, unsubscribe). Opt-outs are suppressed everywhere and the owner is emailed about every interested lead.",
+    ],
+    media: {
+      flow: reviveFlow,
+      result: reviveDashboard,
+      resultTitle: "Live dashboard",
+      resultCaption: "Read-only demo with synthetic leads · click to open full size",
+    },
+    liveDemo: "https://vel-21.github.io/revive-demo/",
+  },
   {
     id: "speed-to-lead",
     title: "Speed-to-lead system",
