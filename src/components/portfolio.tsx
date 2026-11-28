@@ -19,14 +19,26 @@ const navigation = [
   { label: "Services", id: "services" },
   { label: "Projects", id: "projects" },
   { label: "About", id: "about" },
+  { label: "FAQ", id: "faq" },
 ];
 
 const services = [
-  { icon: Users, title: "Lead qualification & CRM pipelines", description: "Turn incoming leads into scored, organized opportunities." },
-  { icon: Send, title: "Instant, personal follow-ups", description: "Email, voice AI and proposals that keep the conversation moving." },
-  { icon: FileText, title: "Invoices & documents to Sheets", description: "Extract the details, check the data and skip the copy-paste." },
-  { icon: Wrench, title: "Automation rescue", description: "Fix and document broken n8n, Make or Zapier workflows." },
+  { icon: Users, title: "Lead qualification & CRM pipelines", description: "Every new lead scored, logged and routed, so hot ones reach you first.", from: "From $150" },
+  { icon: Send, title: "Instant follow-ups & old-lead revival", description: "Personal replies in seconds, and human-approved follow-ups for leads that went quiet.", from: "From $300" },
+  { icon: FileText, title: "Invoices & documents to Sheets", description: "Extract the details, check the math and skip the copy-paste.", from: "From $250" },
+  { icon: Wrench, title: "Automation rescue", description: "Fix and document broken n8n, Make or Zapier workflows.", from: "From $60" },
 ];
+
+const faqs = [
+  { q: "Do I need to pay for any tools?", a: "The automation runs on your own accounts (n8n, Google, your CRM, an AI provider). Before we start, I tell you the expected monthly running cost. It's often a few dollars, billed to you directly by the providers." },
+  { q: "Who owns the system?", a: "You do. Workflows, data and credentials stay in your accounts. You get documentation and a Loom walkthrough, so you're never locked in to me." },
+  { q: "What if something breaks after delivery?", a: `Every build includes a ${deliveryPolicy.fixWindowDays}-day fix window. Workflows also have backup AI models, retries and error alerts, so one failed API call doesn't stop everything.` },
+  { q: "Will the AI send messages without my approval?", a: "Only if you want it to. For anything customer-facing I can add an approval step: the AI drafts, you approve. That's how the Revive demo works." },
+  { q: "Can it work with the tools I already use?", a: "Usually, yes. Gmail, Outlook, Google Sheets, Airtable, HubSpot and most tools with an API or webhooks. If a tool is new to me, I read its docs and test it before I quote, and I'll tell you honestly." },
+  { q: "How do we start?", a: "Message me on Upwork with the task that eats your week and the tools you use. I'll reply with a short plan and a fixed price. Payment goes through Upwork, so you're protected." },
+];
+
+const liveDemoProject = projects.find(p => p.liveDemo);
 
 const process = [
   { title: "Map the process", description: "A short call to understand your tools, your workflow and what’s slowing you down." },
@@ -92,6 +104,11 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         </div>
         <p className="project-result">{project.result}</p>
         <div className="tags">{project.tags.map(tag => <span className="tag" key={tag}>{tag}</span>)}</div>
+        {project.liveDemo && (
+          <a className="loom-link mt-4 mr-5" href={project.liveDemo} target="_blank" rel="noopener noreferrer">
+            Try the live demo<ArrowUpRight size={14} aria-hidden="true" />
+          </a>
+        )}
         <Dialog>
           <DialogTrigger asChild>
             <Button variant="caseStudy" className="mt-5" aria-label={`View case study: ${project.title}`}>
@@ -203,6 +220,12 @@ export function Portfolio() {
             <HireButton />
             <Button asChild variant="portfolioOutline" size="portfolio"><a href="#projects">See the work<ArrowDown aria-hidden="true" /></a></Button>
           </div>
+          <ul className="proof-strip" aria-label="At a glance">
+            <li><strong>{projects.length}</strong> working demo builds</li>
+            {liveDemoProject && <li><a href={liveDemoProject.liveDemo} target="_blank" rel="noopener noreferrer"><strong>Live</strong> dashboard demo <ArrowUpRight size={12} aria-hidden="true" /></a></li>}
+            <li><strong>Fixed price</strong> before work starts</li>
+            <li><strong>{deliveryPolicy.fixWindowDays}-day</strong> fix window</li>
+          </ul>
           <p className="availability"><CircleDot size={12} /><span>Based in the Philippines (UTC+8), overlapping Australian business hours and US evenings.</span></p>
           <div className="hero-baseline"><span>LESS BUSYWORK. MORE BUSINESS.</span><span><Workflow size={13} /> BUILT IN n8n · OWNED BY YOU</span></div>
         </section>
@@ -213,9 +236,10 @@ export function Portfolio() {
               <div><div className="eyebrow">01 / Services</div><h2 id="services-title">Your repetitive work. Automated.</h2></div>
               <p className="section-intro">Practical systems that fit the tools you already use. No unnecessary complexity.</p>
             </div>
-            <div className="services-grid">{services.map(({ icon: Icon, title, description }) => <article className="service-card" key={title}>
+            <div className="services-grid">{services.map(({ icon: Icon, title, description, from }) => <article className="service-card" key={title}>
               <div className="service-icon"><Icon size={19} strokeWidth={1.7} aria-hidden="true" /></div>
               <h3>{title}</h3><p>{description}</p>
+              <p className="service-price">{from} · fixed price</p>
             </article>)}</div>
           </div>
         </section>
@@ -224,7 +248,7 @@ export function Portfolio() {
           <div className="page-container">
             <div className="section-heading">
               <div><div className="eyebrow">02 / Selected projects</div><h2 id="projects-title">Less talk. More working workflows.</h2></div>
-              <p className="section-intro">Five demo builds. Real workflows, concrete results, and a look at how they work.</p>
+              <p className="section-intro">{projects.length} demo builds with sample data. Real workflows, measured test runs, and a look at how each one works.</p>
             </div>
             <div className="projects-grid">{projects.map((project, index) => <ProjectCard key={project.id} project={project} index={index} />)}</div>
           </div>
@@ -256,9 +280,21 @@ export function Portfolio() {
           </div>
         </section>
 
+        <section id="faq" className="section" aria-labelledby="faq-title">
+          <div className="page-container">
+            <div className="eyebrow">05 / Questions</div><h2 id="faq-title">Before you hire.</h2>
+            <div className="faq-list">{faqs.map(item => (
+              <details className="faq-item" key={item.q}>
+                <summary>{item.q}</summary>
+                <p>{item.a}</p>
+              </details>
+            ))}</div>
+          </div>
+        </section>
+
         <section id="contact" className="section contact-section" aria-labelledby="contact-title">
           <div className="page-container">
-            <div className="eyebrow">05 / Let’s work together</div>
+            <div className="eyebrow">06 / Let’s work together</div>
             <h2 id="contact-title">What’s taking up<br />too much of your time?</h2>
             <p>Tell me the tools you use and the task that eats your time. I’ll reply with a plan.</p>
             <div className="contact-actions"><HireButton /></div>
